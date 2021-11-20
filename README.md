@@ -1,4 +1,4 @@
-Forest fire area prediction - Group 2
+# Forest fire area prediction - Group 2
 
 Team members:
 
