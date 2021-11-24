@@ -27,7 +27,7 @@ def main(file_path,  test_data_file, training_data_file):
 
     for x in range(0, len(ff_data)):
         m = ff_data.loc[x, "month"]
-        if m in ["dec, jan, feb"]:
+        if m in ["dec", "jan", "feb"]:
             seasons[x] = "winter"
         elif m in ["mar", "apr", "may"]:
             seasons[x] = "spring"
