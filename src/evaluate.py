@@ -18,6 +18,7 @@ from sklearn.metrics import (
     mean_squared_error,
     mean_absolute_error
 )
+from sklearn.pipeline import make_pipeline, Pipeline
 from preprocess_n_tune_model import root_mean_squared_error, read_data
 from scipy.stats import loguniform
 from statsmodels.stats.outliers_influence import OLSInfluence
@@ -89,9 +90,12 @@ def store_results(results, path_prefix):
 def main(opt):
     
     model = load_model(opt["--results_path"])
+    assert(isinstance(model, Pipeline))
     X_test, y_test = read_data(opt["--test_data"])
+    assert(isinstance(X_test, pd.DataFrame))
     
     results = evaluate_model(model, X_test, y_test)
+    assert(isinstance(results, pd.DataFrame))
     store_results(results, opt["--results_path"])
     
 if __name__ == "__main__":
