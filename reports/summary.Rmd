@@ -1,0 +1,1 @@
+We have created a simple prediction model to explore how weather and soil moisture properties influence the size of forest fires. We explore a data set from northeastern Portugal that contains 2 spatial features, 2 temporal features, 4 soil moisture indices, and 4 weather features to predict the size of wildfires within the Montesinho natural park. 
