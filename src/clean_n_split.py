@@ -56,14 +56,6 @@ def main(file_path,  test_data_file, train_data_file):
 
     ff_data["season"] = s
 
-    ff_data["fire"] = 0
-    ff_data["rain_cat"] = 0
-
-    ff_data.loc[ff_data.area > 0, "fire"] = 1
-    ff_data.loc[ff_data.rain > 0, "rain_cat"] = 1
-
-    ff_data = ff_data.drop("area", axis =1 )
-    ff_data
 
     train_df, test_df = train_test_split(ff_data, test_size=0.2, random_state=123)
 
