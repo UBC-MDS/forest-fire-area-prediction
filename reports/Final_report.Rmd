@@ -2,14 +2,14 @@
 title: "Predicting forest fire occurances in Northeastern Portugal"
 subtitle: "Final Report Group 2"
 author: "Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani"
-date: "11/25/2021"
+date: "11/27/2021"
 output: 
   html_document:
     toc: true
 bibliography: citations.bib
 ---
 # Summary
-```{r summary, child = "P1.Rmd" }
+```{r summary, child = "summary.Rmd" }
 ```
 
 # Introduction
