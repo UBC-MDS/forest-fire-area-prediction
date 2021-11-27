@@ -3,12 +3,11 @@
 
 """"Reads in cleaned data, does the EDA, and outputs images for the report"
 
-Usage: EDA.py --file_path=<file_path> --season_plot=<season_plot> --pair_plot=<pair_plot>
+Usage: EDA.py --file_path=<file_path> --out_folder=<out_folder> 
 
 Options:
 --file_path=<file_path>             The path to read the cleaned/preprocessed data
---season_plot=<season_plot>         The path to where it locally saves the season plot
---pair_plot=<pair_plot>             The path to where it locally saves the pair plot of all numeric values
+--out_folder=<out_folder>           The folder name where locally save the plots
 """
 
 import os
@@ -21,27 +20,43 @@ from docopt import docopt
 
 opt = docopt(__doc__)
 
-def main(file_path, season_plot, pair_plot):
-    with open(file_path, 'rb') as f:
-      cleaned_train_set = pickle.load(f)
+def main(file_path, out_folder):
+    #with open(file_path, 'rb') as f:
+      #cleaned_train_set = pickle.load(f)
+    cleaned_train_set = pd.read_csv(file_path)
 
-    plot_1 = alt.Chart(cleaned_train_set).mark_bar(size = 15).encode(
-    x = alt.X("season", 
+    day_plot = alt.Chart(cleaned_train_set).mark_boxplot(size = 15).encode(
+      x = alt.X("area", 
               scale = alt.Scale(type = "sqrt"),
-              title = "Season"),
-    y = alt.Y("count()", stack=False,
-              title = "Count")
-              ).properties(
-                height = 250,
-                width = 450
-                ).facet('fire') 
+              title = "Burned area"),
+      y = alt.Y("day", 
+              sort = "x",
+              title = "Day of Week"),
+      color = alt.Color("day",
+                      legend = None)
+                      ).properties(
+                        height = 250,
+                        width = 450
+                        )
     
-    plot_1.save(season_plot, scale_factor = 3)
+    season_plot = alt.Chart(cleaned_train_set).mark_boxplot(size = 15).encode(
+      x = alt.X("area", 
+              scale = alt.Scale(type = "sqrt"),
+              title = "Burned area"),
+      y = alt.Y("month", 
+              sort = "x",
+              title = "Season"),
+      color = alt.Color("day",
+                      legend = None)
+                      ).properties(
+                        height = 250,
+                        width = 450
+                        )
 
-    plot_2 = alt.Chart(cleaned_train_set).mark_circle().encode(
+    pair_plot = alt.Chart(cleaned_train_set).mark_circle().encode(
       x = alt.X(alt.repeat("row"), type = "quantitative"),
       y = alt.Y(alt.repeat("column"), type = "quantitative"),
-      color = "fire"
+      color = "month"
       ).properties(
         width = 110,
         height = 110
@@ -51,9 +66,12 @@ def main(file_path, season_plot, pair_plot):
           ).configure_mark(
             opacity = 1
             ).interactive()
-  
-    plot_2.save(pair_plot, scale_factor = 3)
+    
+    # Outputing plots
+    day_plot.save(f"{out_folder}/day_plot.png", scale_factor=5.0)
+    season_plot.save(f"{out_folder}/season_plot.png", scale_factor=5.0)
+    pair_plot.save(f"{out_folder}/pair_plot.png", scale_factor=5.0)
 
 
 if __name__ == "__main__":
-  main(opt["--file_path"], opt["--season_plot"],opt["--pair_plot"])
+  main(opt["--file_path"], opt["--out_folder"])
