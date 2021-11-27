@@ -22,7 +22,12 @@ opt = docopt(__doc__)
 
 def main(file_path, out_folder):
 
+    assert file_path.endswith(".csv"), "Input should be a .csv file as the <in_file>"
+    
     cleaned_train_set = pd.read_csv(file_path)
+
+    assert {'DC','DMC','FFMC','ISI','RH','X','Y','area','day','month','rain','season','temp',
+    'wind'} == set(cleaned_train_set.columns), "Required columns are not available"
 
     day_plot = alt.Chart(cleaned_train_set).mark_boxplot(size = 15).encode(
       x = alt.X("area", 
