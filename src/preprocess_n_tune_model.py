@@ -17,7 +17,9 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import dataframe_image as dfi
 
-from sklearn.compose import make_column_transformer
+from sklearn.compose import (
+    make_column_transformer, ColumnTransformer
+)
 from sklearn.svm import SVR
 from sklearn.metrics import (
     make_scorer,
@@ -28,7 +30,7 @@ from sklearn.model_selection import (
     RandomizedSearchCV,
     cross_validate,
 )
-from sklearn.pipeline import make_pipeline
+from sklearn.pipeline import make_pipeline, Pipeline
 from sklearn.preprocessing import (
     OneHotEncoder,
     StandardScaler
@@ -37,7 +39,7 @@ from scipy.stats import loguniform
 from statsmodels.stats.outliers_influence import OLSInfluence
 from docopt import docopt
 
-
+# Attribution: adopted from 573 course material
 def mean_std_cross_val_scores(model, X_train, y_train, **kwargs):
     """
     Returns mean and std of cross validation
@@ -53,7 +55,7 @@ def mean_std_cross_val_scores(model, X_train, y_train, **kwargs):
 
     Returns
     ----------
-        pandas Series with mean scores from cross_validation
+        Series: pandas Series with mean scores from cross_validation
     """
 
     scores = cross_validate(model, X_train, y_train, **kwargs)
@@ -68,20 +70,52 @@ def mean_std_cross_val_scores(model, X_train, y_train, **kwargs):
     return pd.Series(data=out_col, index=mean_scores.index)
 
 
-def root_mean_squared_error(y_true, y_pred, **kwargs):
+def root_mean_squared_error(y_true, y_pred, **kwargs): 
+    """
+    Returns root mean squared error of the predictions
+
+    Parameters
+    ----------
+    y_true : numpy array
+        y in the test data
+    y_pred :
+        predictions for y_true
+
+    Returns
+    ----------
+        ndarray: root mean squared error of the predictions
+    """
 
     return np.sqrt(mean_squared_error(y_true, y_pred, **kwargs))
 
-def main(opt):
 
-    results= {}
-    cv = 10
+def read_data(path):
+    """
+    Reads and returns the data from path
 
-    with open(opt["--train_data"], "rb") as f:
-        train_df = pickle.load(f) 
+    Parameters
+    ----------
+    path : str
+        Path of the data
 
-    X_train, y_train = train_df.drop("area", axis=1), train_df["area"]
+    Returns
+    ----------
+        tuple: pandas DataFrame of the data split by predictors and target
+    """
+    
+    df = pd.read_csv(path)
 
+    return df.drop("area", axis=1), df["area"]
+
+def create_column_transformer():
+    """
+    Creates a column transformer object
+    
+    Returns
+    ----------
+        ColumnTransformer: a column transformer object for the pipeline
+    """
+    
     numeric = ['FFMC','DMC', 'DC', 'ISI', 'temp', 'RH','wind']
     categorical = ["X", "Y", "season"]
     drop = ["rain", "day", "month"]
@@ -91,14 +125,35 @@ def main(opt):
         (OneHotEncoder(sparse=False, handle_unknown="ignore"), categorical),
         ("drop", drop)
     )
+    
+    return column_transformer
 
+
+def filter_outliers(X_train, y_train, column_transformer, plot_path_prefix):
+    """
+    Detects outliers and filters it from the data
+
+    Parameters
+    ----------
+    X_train : numpy array or pandas DataFrame
+        X in the training data
+    y_train : numpy array
+        y in the training data
+    column_transformer: ColumnTransformer
+        ColumnTransformer object for the pipeline
+    plot_path_prefix: str
+        output path prefix for the plot
+
+    Returns
+    ----------
+        tuple: filtered X_train and y_train
+    """
+    
     filtered_X_train = X_train[y_train > 0]
     filtered_y_train = y_train[y_train > 0]
     transformed = column_transformer.fit_transform(filtered_X_train)
-    categorical_cols = column_transformer.named_transformers_["onehotencoder"].get_feature_names_out().tolist()
 
     preprocessed_X_train = pd.DataFrame(transformed,
-                                        columns=numeric + categorical_cols,
                                         index=filtered_X_train.index)
     preprocessed_X_train = sm.add_constant(preprocessed_X_train)
 
@@ -111,21 +166,55 @@ def main(opt):
     plt.axhline(y=4 / filtered_X_train.shape[0], color="r", linestyle="-")
     plt.xlabel("Training data index")
     plt.ylabel("Cook's distance")
-    plt.savefig(f"{opt['--results_path']}outlier_detection.png")
+    plt.savefig(f"{plot_path_prefix}outlier_detection.png")
 
     outliers = pd.DataFrame(cooks_distance[0], index=filtered_X_train.index)
     outliers_index = outliers[outliers[0] > 4 / filtered_X_train.shape[0]].index
 
     X_train, y_train = X_train.drop(outliers_index), y_train.drop(outliers_index)
+    
+    return X_train, y_train
 
+def create_scorers():
+    """
+    Creates scorers for the cross_validation
+    
+    Returns
+    ----------
+        dict: dictionary of scorers
+    """
+    
     mae_scorer = make_scorer(mean_absolute_error)
     rmse_scorer = make_scorer(root_mean_squared_error)
 
-    scorers = {
+    return {
         "mae": mae_scorer,
         "rmse": rmse_scorer
     }
 
+def cross_validate_n_tune(X_train, y_train, column_transformer, scorers):
+    """
+    Cross-validates and tunes a model for the data
+
+    Parameters
+    ----------
+    X_train : numpy array or pandas DataFrame
+        X in the training data
+    y_train : numpy array
+        y in the training data
+    column_transformer: ColumnTransformer
+        ColumnTransformer object for the pipeline
+    scorers: dict
+        dictionary of scorers
+
+    Returns
+    ----------
+        tuple: best fit model, results dataframe
+    """
+    
+    results= {}
+    cv = 10
+    
     svr_pipe = make_pipeline(
         column_transformer,
         SVR()
@@ -168,13 +257,48 @@ def main(opt):
             scoring=scorer,
             return_train_score=True
         )
+        
+    return random_search.best_estimator_, pd.DataFrame(results)
 
-    with open(f"{opt['--results_path']}tuned_model.pickle", "wb") as f:
-        pickle.dump(random_search.best_estimator_, f)
+def store_model_n_results(model, results, path_prefix):
+    """
+    Saves the model and results as an image
 
-    result_df = pd.DataFrame(results)
-    dfi.export(result_df, f"{opt['--results_path']}cv_results.png")
+    Parameters
+    ----------
+    model : Pipeline
+        the best fit model
+    results : DataFrame
+        CV results dataframe
+    path_prefix: str
+        output path prefix
+    """
     
+    with open(f"{path_prefix}tuned_model.pickle", "wb") as f:
+        pickle.dump(model, f)
+        
+    dfi.export(results, f"{path_prefix}cv_results.png")
+
+def main(opt):
+    
+    X_train, y_train = read_data(opt["--train_data"])
+    assert(isinstance(X_train, pd.DataFrame))
+    column_transformer = create_column_transformer()
+    assert(isinstance(column_transformer, ColumnTransformer))
+    X_train, y_train = filter_outliers(X_train,
+                                       y_train,
+                                       column_transformer,
+                                       opt['--results_path'])
+    assert(isinstance(X_train, pd.DataFrame))
+    scorers = create_scorers()
+    assert(isinstance(scorers, dict))
+    model, results = cross_validate_n_tune(X_train,
+                                           y_train,
+                                           column_transformer,
+                                           scorers)
+    assert(isinstance(model, Pipeline))
+    assert(isinstance(results, pd.DataFrame))
+    store_model_n_results(model, results, opt['--results_path'])
 
 if __name__ == "__main__":
     opt = docopt(__doc__)

@@ -18,7 +18,7 @@ from sklearn.metrics import (
     mean_squared_error,
     mean_absolute_error
 )
-from preprocess_n_tune_model import root_mean_squared_error
+from preprocess_n_tune_model import root_mean_squared_error, read_data
 from scipy.stats import loguniform
 from statsmodels.stats.outliers_influence import OLSInfluence
 from docopt import docopt
@@ -26,24 +26,73 @@ from docopt import docopt
 
 opt = docopt(__doc__)
 
-def main():
+def load_model(path_prefix):
+    """
+    Loads the model from the path prefix
 
-    with open(opt["--test_data"], "rb") as f:
-        test_df = pickle.load(f)
+    Parameters
+    ----------
+    path_prefix : str
+        Path prefix of the model
 
-    with open(f"{opt['--results_path']}tuned_model.pickle", "rb") as f:
+    Returns
+    ----------
+        Pipeline: saved model
+    """
+
+    with open(f"{path_prefix}tuned_model.pickle", "rb") as f:
         model = pickle.load(f)
+        
+    return model
 
-    X_test, y_test = test_df.drop("area", axis=1), test_df["area"]
+def evaluate_model(model, X_test, y_test):
+    """
+    Evaluates the best fit model on the test data
 
+    Parameters
+    ----------
+    model: Pipeline
+        the best fit model
+    X_test : pandas DataFrame
+        X in the test data
+    y_test : numpy array
+        y in the test data 
+
+    Returns
+    ----------
+        DataFrame: best fi model's results on the test data
+    """
+    
     test_scores = {}
 
     predictions = model.predict(X_test)
     test_scores[f"SVR_Optimized_MAE"] = mean_absolute_error(y_test, predictions)
     test_scores[f"SVR_Optimized_RMSE"] = root_mean_squared_error(y_test, predictions)
 
-    result_df = pd.DataFrame(test_scores, index=["Test Score"])
-    dfi.export(result_df, f"{opt['--results_path']}test_results.png")
+    return pd.DataFrame(test_scores, index=["Test Score"])
+
+def store_results(results, path_prefix):
+    """
+    Saves the test results as an image
+
+    Parameters
+    ----------
+    results : DataFrame
+        test results dataframe
+    path_prefix: str
+        output path prefix
+    """
+    
+    dfi.export(results, f"{path_prefix}test_results.png")
+
+
+def main(opt):
+    
+    model = load_model(opt["--results_path"])
+    X_test, y_test = read_data(opt["--test_data"])
+    
+    results = evaluate_model(model, X_test, y_test)
+    store_results(results, opt["--results_path"])
     
 if __name__ == "__main__":
-    main()
+    main(opt)
