@@ -21,8 +21,7 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(file_path, out_folder):
-    #with open(file_path, 'rb') as f:
-      #cleaned_train_set = pickle.load(f)
+
     cleaned_train_set = pd.read_csv(file_path)
 
     day_plot = alt.Chart(cleaned_train_set).mark_boxplot(size = 15).encode(
@@ -43,7 +42,7 @@ def main(file_path, out_folder):
       x = alt.X("area", 
               scale = alt.Scale(type = "sqrt"),
               title = "Burned area"),
-      y = alt.Y("month", 
+      y = alt.Y("season", 
               sort = "x",
               title = "Season"),
       color = alt.Color("day",
@@ -56,7 +55,7 @@ def main(file_path, out_folder):
     pair_plot = alt.Chart(cleaned_train_set).mark_circle().encode(
       x = alt.X(alt.repeat("row"), type = "quantitative"),
       y = alt.Y(alt.repeat("column"), type = "quantitative"),
-      color = "month"
+      color = "season"
       ).properties(
         width = 110,
         height = 110
