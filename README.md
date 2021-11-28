@@ -13,3 +13,48 @@ Moving forward, we plan to explore several regression models such as SVM, k-NN, 
 P. Cortez and A. Morais. A Data Mining Approach to Predict Forest Fires using Meteorological Data. In J. Neves, M. F. Santos and J. Machado Eds., New Trends in Artificial Intelligence, Proceedings of the 13th EPIA 2007 - Portuguese Conference on Artificial Intelligence.
 
 Data is publically avaliable at https://archive.ics.uci.edu/ml/datasets/Forest+Fires.
+
+
+
+## Usage
+To replicate our analysis install the dependenciese that are listed below and run the following commands in order in your terminal from the root directory of the project:
+
+```
+#Cleaning and splitting
+python src/clean_n_split.py --file_path = data/raw/forestfires.csv --test_data_file = test_data --train_data_file= train_data
+
+#EDA plots
+python src/EDA.py --file_path="data/processed/train_data.csv" --out_folder=reports
+
+#Preprocess, Cross-validate, and Tune model
+python src/preprocess_n_tune_model.py --train_data=data/processed/<filename>.csv --results_path=results/
+
+#Evaluate model
+python src/evaluate.py --test_data=data/processed/<filename>.csv --results_path=results/
+
+# render final report
+Rscript -e "rmarkdown::render('doc/Final_report.Rmd', output_format = 'github_document')"
+
+```
+
+**Dependencies**   
+python :
+```
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - altair>=4.1.0
+  - altair_data_server>=0.4.1
+  - altair_saver>=0.5.0
+  - pandas>=1.3.4
+  - docopt>=0.6.2
+  - pip
+```
+R:
+```
+  - knitr==1.26
+  - tidyverse==1.2.1
+  - caret==6.0-84
+  - ggthemes==4.2.0
+```
