@@ -37,3 +37,24 @@ Rscript -e "rmarkdown::render('doc/Final_report.Rmd', output_format = 'github_do
 
 ```
 
+**Dependencies**   
+python :
+```
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - altair>=4.1.0
+  - altair_data_server>=0.4.1
+  - altair_saver>=0.5.0
+  - pandas>=1.3.4
+  - docopt>=0.6.2
+  - pip
+```
+R:
+```
+  - knitr==1.26
+  - tidyverse==1.2.1
+  - caret==6.0-84
+  - ggthemes==4.2.0
+```
