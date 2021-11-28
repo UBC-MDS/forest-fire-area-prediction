@@ -6,7 +6,7 @@ date: "11/27/2021"
 output: 
   html_document:
     toc: true
-bibliography: citations.bib
+bibliography: bibliography.bib
 ---
 # Summary
 ```{r summary, child = "summary.Rmd" }
@@ -16,18 +16,18 @@ bibliography: citations.bib
 ```{r introduction, child = "introduction.Rmd"}
 ```
 
-# Data
+# Methods
+## Data
 ```{r data, child = "data.Rmd"}
 ```
 
-# Analysis
-<!-- ```{r analysis, child="analysis.Rmd"} -->
-<!-- ``` -->
+## Analysis
+```{r analysis, child="analysis.Rmd"}
+```
 
 # Results and Discussion
-<!-- ```{r results, child="results_discussion.Rmd"} -->
-<!-- ``` -->
-
+```{r results, child="results_discussion.Rmd"}
+```
 
 # References
 
