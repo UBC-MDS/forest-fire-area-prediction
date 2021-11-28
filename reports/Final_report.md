@@ -165,14 +165,15 @@ weight to the observations further away from the mean – that is, being
 off by 20ha will be more than twice as bad as being off by 10ha.
 
 We understand that there are additional ways to improve our model and
-results. While we have tried to compensate for this using Cook’s
-distance to detect outliers, we could try another outlier detection
-method to confirms our results. We can also employ feature selection
-algorithms or transform our predictor variables by applying log-normal,
-square root, or other transformations. Additionally, we can consider the
-interactions between the variables within our model and apply polynomial
-regression or consider other regression algorithms such as the random
-forest algorithm which is robust to outliers and non-linear data.
+results. Since we have such skewed data it is important that we
+appropriately address outliers thus we can try other outlier detection
+methods to confirms our results found using Cook’s distance method. We
+can also employ feature selection algorithms or transform our predictor
+variables by applying log-normal, square root, or other transformations.
+Additionally, we can consider the interactions between the variables
+within our model and apply polynomial regression or consider other
+regression algorithms such as the random forest algorithm which is
+robust to outliers and non-linear data.
 
 # References
 
