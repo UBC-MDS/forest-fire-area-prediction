@@ -26,7 +26,7 @@ python src/preprocess_n_tune_model.py --train_data=data/processed/train_data.csv
 python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
 
 # render final report
-Rscript -e "rmarkdown::render('doc/Final_report.Rmd', output_format = 'github_document')"
+Rscript -e "rmarkdown::render('reports/Final_report.Rmd', output_format = 'github_document')"
 
 ```
 
