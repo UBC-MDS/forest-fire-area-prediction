@@ -55,10 +55,10 @@ def main(file_path,  test_data_file, train_data_file):
     s = get_seasons(ff_data)
 
     ff_data["season"] = s
-
+    assert(len(ff_data.loc[ff_data.season == 'fall']) == len(ff_data.loc[(ff_data.month =='sep') |  (ff_data.month =='oct') | (ff_data.month =='nov')]))  
 
     train_df, test_df = train_test_split(ff_data, test_size=0.2, random_state=123)
-
+     
     test_df.to_csv('data/processed/%s.csv'%(test_data_file),index=False)
     train_df.to_csv('data/processed/%s.csv'%(train_data_file), index=False)
 
