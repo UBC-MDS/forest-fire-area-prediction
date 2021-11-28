@@ -72,9 +72,9 @@ def main(file_path, out_folder):
             ).interactive()
     
     # Outputing plots
-    day_plot.save(f"{out_folder}/day_plot.png", scale_factor=5.0)
-    season_plot.save(f"{out_folder}/season_plot.png", scale_factor=5.0)
-    pair_plot.save(f"{out_folder}/pair_plot.png", scale_factor=5.0)
+    day_plot.save(f"{out_folder}/EDA_day_plot.png", scale_factor=5.0)
+    season_plot.save(f"{out_folder}/EDA_season_plot.png", scale_factor=5.0)
+    pair_plot.save(f"{out_folder}/EDA_pair_plot.png", scale_factor=5.0)
 
 
 if __name__ == "__main__":
