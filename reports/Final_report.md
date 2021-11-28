@@ -1,4 +1,4 @@
-Predicting forest fire occurances in Northeastern Portugal
+Predicting forest fire sizes in Northeastern Portugal
 ================
 Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani
 11/27/2021
