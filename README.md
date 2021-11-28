@@ -21,7 +21,7 @@ To replicate our analysis install the dependenciese that are listed below and ru
 
 ```
 #Cleaning and splitting
-python src/clean_n_split.py --file_path = data/raw/forestfires.csv --test_data_file = test_data --train_data_file= train_data
+python src/clean_n_split.py --file_path=data/raw/forestfires.csv --test_data_file=test_data --train_data_file=train_data
 
 #EDA plots
 python src/EDA.py --file_path="data/processed/train_data.csv" --out_folder=reports
