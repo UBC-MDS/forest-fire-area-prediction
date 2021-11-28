@@ -1,9 +1,11 @@
 ---
-title: "Predicting forest fire occurances in Northeastern Portugal"
+title: "Predicting forest fire sizes in Northeastern Portugal"
 subtitle: "Final Report Group 2"
 author: "Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani"
 date: "11/27/2021"
 output: 
+  github_document:
+    toc: true
   html_document:
     toc: true
 bibliography: bibliography.bib
