@@ -10,7 +10,7 @@ To predict the size of wildfires, we will build a predictive regression model. F
 The final report can be found [here](https://github.com/UBC-MDS/forest-fire-area-prediction-group-2/blob/dev/reports/Final_report.md).
 
 ## Usage
-To replicate our analysis install the dependenciese that are listed below and run the following commands in order in your terminal from the root directory of the project:
+To replicate our analysis install the dependencies that are listed below and run the following commands in order in your terminal from the root directory of the project:
 
 ```
 #Cleaning and splitting
