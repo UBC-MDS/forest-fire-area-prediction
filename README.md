@@ -17,13 +17,13 @@ To replicate our analysis install the dependenciese that are listed below and ru
 python src/clean_n_split.py --file_path=data/raw/forestfires.csv --test_data_file=test_data --train_data_file=train_data
 
 #EDA plots
-python src/EDA.py --file_path="data/processed/train_data.csv" --out_folder=reports
+python src/EDA.py --file_path=data/processed/train_data.csv --out_folder=reports
 
 #Preprocess, Cross-validate, and Tune model
-python src/preprocess_n_tune_model.py --train_data=data/processed/<filename>.csv --results_path=results/
+python src/preprocess_n_tune_model.py --train_data=data/processed/train_data.csv --results_path=results/
 
 #Evaluate model
-python src/evaluate.py --test_data=data/processed/<filename>.csv --results_path=results/
+python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
 
 # render final report
 Rscript -e "rmarkdown::render('doc/Final_report.Rmd', output_format = 'github_document')"
@@ -43,6 +43,10 @@ dependencies:
   - pandas>=1.3.4
   - docopt>=0.6.2
   - pip
+  - matplotlib[version='>=3.2.2']
+  - scikit-learn[version='>=1.0']
+  - requests[version='>=2.24.0']
+  - dataframe-image
 ```
 R:
 ```
