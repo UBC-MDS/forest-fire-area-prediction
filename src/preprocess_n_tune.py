@@ -3,7 +3,7 @@
 
 """Reads in the train and test data, and outputs a tuned model and cross-validation results
 
-Usage: preprocess_n_tune_model.py --train_data=<train_data> --results_path=<results_path>
+Usage: preprocess_n_tune.py --train_data=<train_data> --results_path=<results_path>
  
 Options: 
 --train_data=<train_data>        Training data path 
