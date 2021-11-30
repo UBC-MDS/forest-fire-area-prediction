@@ -3,7 +3,13 @@ __pycache__
 .ipynb_checkpoints
 .virtual_documents
 
+#R
+.RData
+
 # Operating system
 
 # Mac
 .DS_Store
+
+# Others
+geckodriver.log
