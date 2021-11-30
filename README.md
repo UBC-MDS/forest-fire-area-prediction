@@ -1,4 +1,4 @@
-# Forest fire area prediction - Group 2  
+# Forest fire area prediction  
 
 In this project, we aim to predict the burned area of forest fires in the northeast region of Portugal, using meteorological and soil moisture data. Forest fires are major environmental concerns with the potential of endangering human lives (Cortez and Morais, 2007). Particularly, here in BC, millions of acres of forests are burned annually, damaging the environment and posing significant financial challenges. Being able to predict the size of burned area of future forest fires may help fire monitoring and fire mitigation efforts. 
 
