@@ -13,19 +13,19 @@ The final report can be found [here](https://github.com/UBC-MDS/forest-fire-area
 To replicate our analysis install the dependencies that are listed below and run the following commands in order in your terminal from the root directory of the project:
 
 ```
-#Cleaning and splitting
+# Clean and Split Data
 python src/clean_n_split.py --file_path=data/raw/forestfires.csv --test_data_file=test_data --train_data_file=train_data
 
-#EDA plots
+# Exploratory Data Analysis
 python src/EDA.py --file_path=data/processed/train_data.csv --out_folder=results
 
-#Preprocess, Cross-validate, and Tune model
+# Preprocess, Cross-validate, and Tune Model
 python src/preprocess_n_tune.py --train_data=data/processed/train_data.csv --results_path=results/
 
-#Evaluate model
+# Evaluate model
 python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
 
-# render final report
+# Render Final Report
 Rscript -e "rmarkdown::render('reports/Final_report.Rmd', output_format = 'github_document')"
 
 ```
