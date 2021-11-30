@@ -20,7 +20,7 @@ python src/clean_n_split.py --file_path=data/raw/forestfires.csv --test_data_fil
 python src/EDA.py --file_path=data/processed/train_data.csv --out_folder=results
 
 #Preprocess, Cross-validate, and Tune model
-python src/preprocess_n_tune_model.py --train_data=data/processed/train_data.csv --results_path=results/
+python src/preprocess_n_tune.py --train_data=data/processed/train_data.csv --results_path=results/
 
 #Evaluate model
 python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
