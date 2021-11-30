@@ -30,8 +30,9 @@ Rscript -e "rmarkdown::render('reports/Final_report.Rmd', output_format = 'githu
 
 ```
 
-**Dependencies**   
-python :
+**Dependencies**
+
+Python:
 ```
 channels:
   - conda-forge
