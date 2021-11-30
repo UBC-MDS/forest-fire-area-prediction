@@ -22,7 +22,7 @@ python src/EDA.py --file_path=data/processed/train_data.csv --out_folder=results
 # Preprocess, Cross-validate, and Tune Model
 python src/preprocess_n_tune.py --train_data=data/processed/train_data.csv --results_path=results/
 
-# Evaluate model
+# Evaluate Model
 python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
 
 # Render Final Report
