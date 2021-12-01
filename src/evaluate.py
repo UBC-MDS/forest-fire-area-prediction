@@ -19,7 +19,7 @@ from sklearn.metrics import (
     mean_absolute_error
 )
 from sklearn.pipeline import make_pipeline, Pipeline
-from preprocess_n_tune_model import root_mean_squared_error, read_data
+from preprocess_n_tune import root_mean_squared_error, read_data
 from scipy.stats import loguniform
 from statsmodels.stats.outliers_influence import OLSInfluence
 from docopt import docopt
