@@ -34,13 +34,13 @@ burned in the recent decades, with over 1,350,000 ha burning in 2018
 alone, costing the Canadian government over $615 million dollars
 (British Columbia 2021). Due to the complexity and variability in
 landscapes, fuel characteristics, climate patterns, and man-made
-infrastructure, it is incredibly hard to determine how large a fire will
-be, the intensity at which it will burn, and how it will move.
+infrastructure, it is incredibly hard to determine how large a forest
+fire will be, the intensity at which it will burn, and how it will move.
 Predicting such fire characteristics would benefit local communities and
 may influence resource allocation decisions during fire events. Our aim
 is to create a machine learning model that can predict how much area a
 particular fire will burn. While our model will be simple, it will begin
-to explore the interactions between climate, soil properties, and area
+to explore the interactions between climate, soil properties, and areas
 burned by forest fires.
 
 # Methods
@@ -70,9 +70,9 @@ globally (P. Cortex, A. Morais 2007).
 
 The Support Vector Regression (SVR) algorithm was used to build a
 regression model to predict the burned areas of forest fires. The
-variables `FFMC`, `DMC` , `DC`, `ISI`, `temp`, `RH`, `wind`, `X`, `Y`
-and `season` were used to fit the model. The `day` and `rain` variables
-were dropped for the training, and the variable `month` was feature
+variables `FFMC`, `DMC`, `DC`, `ISI`, `temp`, `RH`, `wind`, `X`, `Y` and
+`season` were used to fit the model. The `day` and `rain` variables were
+dropped for the training, and the variable `month` was feature
 engineered into the `season` variable. Cook’s Distance method with a
 threshold of 4/*n* was used to detect and remove outliers from the data
 set. The hyperparameters of *C* and *γ* were chosen using 10-fold
@@ -162,14 +162,14 @@ target variable `area` has a range of values from 0 to 1090.84 hectares.
 Therefore, using both regression metrics, the errors provided in table 2
 seem to be quite low in comparison to the range of values. Nonetheless,
 in the context of burned areas of fire, large errors are particularly
-undesirable, and as a result RMSE might be more useful as it gives more
+undesirable, and as a result, RMSE might be more useful as it gives more
 weight to the observations further away from the mean – that is, being
 off by 20ha will be more than twice as bad as being off by 10ha.
 
 We understand that there are additional ways to improve our model and
 results. Since we have such skewed data it is important that we
 appropriately address outliers thus we can try other outlier detection
-methods to confirms our results found using Cook’s distance method. We
+methods to confirm our results found using Cook’s distance method. We
 can also employ feature selection algorithms or transform our predictor
 variables by applying log-normal, square root, or other transformations.
 Additionally, we can consider the interactions between the variables
