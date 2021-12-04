@@ -89,7 +89,7 @@ perform the analysis and create this report can be found here:
 
 # Results and Discussion
 
-**Note:** The figure captions appear when hovering over the plots.
+**Note: The figure captions appear when hovering over the plots.**
 
 To explore which features might be useful in predicting forest fire burn
 areas, we made several graphs. Figure 1 shows that no clear relationship
@@ -157,14 +157,19 @@ errors before taking the average, which gives higher weights to large
 errors. Therefore, considering RMSE would be more useful when large
 errors are particularly undesirable.
 
-Overall, we find that the model performs well on the test data as our
-target variable `area` has a range of values from 0 to 1090.84 hectares.
-Therefore, using both regression metrics, the errors provided in table 2
-seem to be quite low in comparison to the range of values. Nonetheless,
-in the context of burned areas of fire, large errors are particularly
-undesirable, and as a result, RMSE might be more useful as it gives more
-weight to the observations further away from the mean – that is, being
-off by 20ha will be more than twice as bad as being off by 10ha.
+Overall, we find that the model performs fairly well on the test data as
+our target variable `area` has a range of values from 0 to 1090.84
+hectares. Therefore, using both regression metrics, the errors provided
+in table 2 seem to be quite low in comparison to the range of values.
+Nonetheless, in the context of burned areas of fire, large errors are
+particularly undesirable, and as a result, RMSE might be more useful as
+it gives more weight to the observations further away from the mean –
+that is, being off by 20ha will be more than twice as bad as being off
+by 10ha. As suggested by a higher RMSE, figure 5 shows that the model is
+majorly underpredicting for very large fires. This could partly be
+because we have a small dataset, and the test data contains outliers.
+
+<img src="../results/predictions.png" title="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" alt="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" width="50%" height="50%" />
 
 We understand that there are additional ways to improve our model and
 results. Since we have such skewed data it is important that we
