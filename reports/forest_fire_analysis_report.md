@@ -34,13 +34,13 @@ burned in the recent decades, with over 1,350,000 ha burning in 2018
 alone, costing the Canadian government over $615 million dollars
 (British Columbia 2021). Due to the complexity and variability in
 landscapes, fuel characteristics, climate patterns, and man-made
-infrastructure, it is incredibly hard to determine how large a fire will
-be, the intensity at which it will burn, and how it will move.
+infrastructure, it is incredibly hard to determine how large a forest
+fire will be, the intensity at which it will burn, and how it will move.
 Predicting such fire characteristics would benefit local communities and
 may influence resource allocation decisions during fire events. Our aim
 is to create a machine learning model that can predict how much area a
 particular fire will burn. While our model will be simple, it will begin
-to explore the interactions between climate, soil properties, and area
+to explore the interactions between climate, soil properties, and areas
 burned by forest fires.
 
 # Methods
@@ -70,16 +70,16 @@ globally (P. Cortex, A. Morais 2007).
 
 The Support Vector Regression (SVR) algorithm was used to build a
 regression model to predict the burned areas of forest fires. The
-variables `FFMC`, `DMC` , `DC`, `ISI`, `temp`, `RH`, `wind`, `X`, `Y`
-and `season` were used to fit the model. The `day` and `rain` variables
-were dropped for the training, and the variable `month` was feature
+variables `FFMC`, `DMC`, `DC`, `ISI`, `temp`, `RH`, `wind`, `X`, `Y` and
+`season` were used to fit the model. The `day` and `rain` variables were
+dropped for the training, and the variable `month` was feature
 engineered into the `season` variable. Cook’s Distance method with a
-threshold of $\\frac{4}{n}$ was used to detect and remove outliers from
-the data set. The hyperparameters of *C* and *γ* were chosen using
-10-fold cross-validation with Mean Absolute Error (MAE) and Root Mean
-Squared Error (RMSE) as the regression metrics. The R and Python
-programming languages (R Core Team 2019; Van Rossum and Drake 2009) and
-the following R and Python packages were used to perform the analysis:
+threshold of 4/*n* was used to detect and remove outliers from the data
+set. The hyperparameters of *C* and *γ* were chosen using 10-fold
+cross-validation with Mean Absolute Error (MAE) and Root Mean Squared
+Error (RMSE) as the regression metrics. The R and Python programming
+languages (R Core Team 2019; Van Rossum and Drake 2009) and the
+following R and Python packages were used to perform the analysis:
 pickle (Van Rossum 2020), docopt (de Jonge 2018), knitr (Xie 2014),
 NumPy (Harris et al. 2020), Pandas (McKinney et al. 2010), statsmodels
 (Seabold and Perktold 2010), scikit-learn (Pedregosa et al. 2011), os
@@ -88,6 +88,8 @@ perform the analysis and create this report can be found here:
 <https://github.com/UBC-MDS/forest-fire-area-prediction-group-2>.
 
 # Results and Discussion
+
+**Note: The figure captions appear when hovering over the plots.**
 
 To explore which features might be useful in predicting forest fire burn
 areas, we made several graphs. Figure 1 shows that no clear relationship
@@ -149,25 +151,30 @@ when compared to the mean cross-validated validation scores when using
 MAE. However, the model performs slightly better on the validation sets
 compared to the test data when using RMSE. Furthermore, the MAE score is
 less than the RMSE score which is sensible as we should normally have
-*M**A**E* ≤ *R**M**S**E*. Both regression metrics express the average
-prediction error in the units of hectares. It is also worth noting that
-RMSE squares the errors before taking the average, which gives higher
-weights to large errors. Therefore, considering RMSE would be more
-useful when large errors are particularly undesirable.
+MAE ≤ RMSE. Both regression metrics express the average prediction error
+in the units of hectares. It is also worth noting that RMSE squares the
+errors before taking the average, which gives higher weights to large
+errors. Therefore, considering RMSE would be more useful when large
+errors are particularly undesirable.
 
-Overall, we find that the model performs well on the test data as our
-target variable `area` has a range of values from 0 to 1090.84 hectares.
-Therefore, using both regression metrics, the errors provided in table 2
-seem to be quite low in comparison to the range of values. Nonetheless,
-in the context of burned areas of fire, large errors are particularly
-undesirable, and as a result RMSE might be more useful as it gives more
-weight to the observations further away from the mean – that is, being
-off by 20ha will be more than twice as bad as being off by 10ha.
+Overall, we find that the model performs fairly well on the test data as
+our target variable `area` has a range of values from 0 to 1090.84
+hectares. Therefore, using both regression metrics, the errors provided
+in table 2 seem to be quite low in comparison to the range of values.
+Nonetheless, in the context of burned areas of fire, large errors are
+particularly undesirable, and as a result, RMSE might be more useful as
+it gives more weight to the observations further away from the mean –
+that is, being off by 20ha will be more than twice as bad as being off
+by 10ha. As suggested by a higher RMSE, figure 5 shows that the model is
+majorly underpredicting for very large fires. This could partly be
+because we have a small dataset, and the test data contains outliers.
+
+<img src="../results/predictions.png" title="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" alt="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" width="50%" height="50%" />
 
 We understand that there are additional ways to improve our model and
 results. Since we have such skewed data it is important that we
 appropriately address outliers thus we can try other outlier detection
-methods to confirms our results found using Cook’s distance method. We
+methods to confirm our results found using Cook’s distance method. We
 can also employ feature selection algorithms or transform our predictor
 variables by applying log-normal, square root, or other transformations.
 Additionally, we can consider the interactions between the variables
