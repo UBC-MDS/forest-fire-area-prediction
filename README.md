@@ -1,5 +1,7 @@
 # Forest Fire Area Prediction
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **Research Question:** Can we accurately predict the size of a forest fire based on meteorological and soil moisture records?
 
 In this project, we aim to predict the burned area of forest fires in the northeast region of Portugal. Forest fires are major environmental concerns with the potential of endangering human lives (Cortez and Morais, 2007). Here in BC, millions of acres of forests burn annually, damaging large swaths of forest and posing significant financial challenges. Being able to predict the size of burned area of forest fires may significantly impact fire management and mitigation efforts.
