@@ -24,7 +24,7 @@ The final report can be found [here](https://github.com/UBC-MDS/forest-fire-area
 
 ## Usage
 
-**WINDOW USERS:** The current work flow does not work on Windows. We are looking into fixing the issue.
+**WINDOWS USERS:** The current work flow might not work on Windows due to a dependency support issue not in our control. This will be resolved in the next milestone with Docker containers.
 
 To replicate our analysis install the dependencies that are listed below. Alternatively, you can create and activate a conda environment with all the dependencies using the following `conda` command.
 
