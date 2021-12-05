@@ -35,23 +35,33 @@ conda env create -f environment.yml
 conda activate ffa_prediction
 ```
 
--   Run the following commands in order in your terminal from the root directory of the project.
+To run all the steps in the analysis using `make` from the root directory of the project.
 
 ``` bash
-# Clean and Split Data
-python src/clean_n_split.py --file_path=data/raw/forestfires.csv --test_data_file=test_data --train_data_file=train_data
+# Clean data, results, and reports
+make clean
+
+# Run all steps
+make all
+```
+
+To run the steps individually using `make` from the root directory of the project.
+
+``` bash
+# Clean and split data
+make data/processed/train_data.csv
 
 # Exploratory Data Analysis
-python src/EDA.py --file_path=data/processed/train_data.csv --out_folder=results
+make results/EDA_day_plot.png
 
-# Preprocess, Cross-validate, and Tune Model
-python src/preprocess_n_tune.py --train_data=data/processed/train_data.csv --results_path=results/
+# Preprocess, cross-validate, and tune model
+make results/cv_results.png
 
-# Evaluate Model
-python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
+# Evaluate model
+make results/test_results.png
 
-# Render Final Report
-Rscript -e "rmarkdown::render('reports/Final_report.Rmd', output_format = 'github_document')"
+# Render final report
+make reports/forest_fire_analysis_report.md
 ```
 
 **Dependencies**
