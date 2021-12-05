@@ -89,7 +89,8 @@ perform the analysis and create this report can be found here:
 
 # Results and Discussion
 
-**Note: The figure captions appear when hovering over the plots.**
+**Note: In Github Document, the figure captions appear when hovering
+over the plots.**
 
 To explore which features might be useful in predicting forest fire burn
 areas, we made several graphs. Figure 1 shows that no clear relationship
@@ -101,9 +102,9 @@ there may be a relationship between burnt areas of forest and seasons,
 thus we drop the `day` feature and replace the months with their
 respective seasons.
 
-<img src="../results/EDA_day_plot.png" title="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" alt="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" width="50%" height="50%" />
+<img src="../results/EDA_day_plot.png" title="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" alt="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" width="50%" height="50%" style="display: block; margin: auto;" />
 
-<img src="../results/EDA_season_plot.png" title="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" alt="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" width="50%" height="50%" />
+<img src="../results/EDA_season_plot.png" title="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" alt="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" width="50%" height="50%" style="display: block; margin: auto;" />
 
 Figure 3 plots the pairwise relationships between the numerical
 variables of the dataset. We can see that the majority of the numerical
@@ -114,13 +115,13 @@ and `rain`. Since `rain` has mostly values of 0, we drop this variable.
 To address outliers in the other variables, we use Cook’s distance for
 detecting outliers.
 
-<img src="../results/EDA_pair_plot.png" title="Figure 3. Pairwise relationships between the numerical variables per season" alt="Figure 3. Pairwise relationships between the numerical variables per season" width="90%" height="90%" />
+<img src="../results/EDA_pair_plot.png" title="Figure 3. Pairwise relationships between the numerical variables per season" alt="Figure 3. Pairwise relationships between the numerical variables per season" width="90%" height="90%" style="display: block; margin: auto;" />
 
 The Cook’s distance method identified 4 observations as outliers as
 shown in figure 4. Consequently, we removed these 4 observations from
 our training data.
 
-<img src="../results/outlier_detection.png" title="Figure 4. Cook's distance outlier detection" alt="Figure 4. Cook's distance outlier detection" width="50%" height="50%" />
+<img src="../results/outlier_detection.png" title="Figure 4. Cook's distance outlier detection" alt="Figure 4. Cook's distance outlier detection" width="50%" height="50%" style="display: block; margin: auto;" />
 
 We chose to perform regression using the Support Vector Regression (SVR)
 algorithm. To find the best model that predicted the burned forest area,
@@ -130,32 +131,31 @@ that the optimal *C* was 1.88 and the optimal *γ* was 0.48.
 
 <br>
 
-<img src="../results/cv_results.png" width="50%" height="50%" />
+<img src="../results/cv_results.png" width="80%" height="80%" style="display: block; margin: auto;" />
 
-Table 1. Results from 10-fold cross-validation before and after
+<br> Table 1. Results from 10-fold cross-validation before and after
 hyperparameter optimization
 
-<br> Table 1 shows that the models improve slightly after hyperparameter
+Table 1 shows that the models improve slightly after hyperparameter
 tuning. The mean train scores and the mean validation scores using both
 MAE and RMSE seem to be fairly close to each other.
 
 <br>
 
-<img src="../results/test_results.png" width="40%" height="40%" />
-
-Table 2. Results from 10-fold cross-validation before and after
+<img src="../results/test_results.png" width="40%" height="40%" style="display: block; margin: auto;" />
+<br> Table 2. Results from 10-fold cross-validation before and after
 hyperparameter optimization
 
-Table 2 reveals that the model performed similarly on unseen test data
-when compared to the mean cross-validated validation scores when using
-MAE. However, the model performs slightly better on the validation sets
-compared to the test data when using RMSE. Furthermore, the MAE score is
-less than the RMSE score which is sensible as we should normally have
-MAE ≤ RMSE. Both regression metrics express the average prediction error
-in the units of hectares. It is also worth noting that RMSE squares the
-errors before taking the average, which gives higher weights to large
-errors. Therefore, considering RMSE would be more useful when large
-errors are particularly undesirable.
+<br> Table 2 reveals that the model performed similarly on unseen test
+data when compared to the mean cross-validated validation scores when
+using MAE. However, the model performs slightly better on the validation
+sets compared to the test data when using RMSE. Furthermore, the MAE
+score is less than the RMSE score which is sensible as we should
+normally have MAE ≤ RMSE. Both regression metrics express the average
+prediction error in the units of hectares. It is also worth noting that
+RMSE squares the errors before taking the average, which gives higher
+weights to large errors. Therefore, considering RMSE would be more
+useful when large errors are particularly undesirable.
 
 Overall, we find that the model performs fairly well on the test data as
 our target variable `area` has a range of values from 0 to 1090.84
@@ -169,7 +169,7 @@ by 10ha. As suggested by a higher RMSE, figure 5 shows that the model is
 majorly underpredicting for very large fires. This could partly be
 because we have a small dataset, and the test data contains outliers.
 
-<img src="../results/predictions.png" title="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" alt="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" width="50%" height="50%" />
+<img src="../results/predictions.png" title="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" alt="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" width="50%" height="50%" style="display: block; margin: auto;" />
 
 We understand that there are additional ways to improve our model and
 results. Since we have such skewed data it is important that we

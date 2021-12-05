@@ -33,6 +33,3 @@ bibliography: report_sections/bibliography.bib
 
 # References
 
-
-
-
