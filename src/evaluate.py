@@ -11,17 +11,14 @@ Options:
 """
 
 import pickle
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import dataframe_image as dfi
 
-from sklearn.metrics import (
-    mean_squared_error,
-    mean_absolute_error
-)
-from sklearn.pipeline import make_pipeline, Pipeline
+from sklearn.metrics import mean_absolute_error
+from sklearn.pipeline import Pipeline
 from preprocess_n_tune import root_mean_squared_error, read_data
-from scipy.stats import loguniform
-from statsmodels.stats.outliers_influence import OLSInfluence
 from docopt import docopt
 
 
@@ -70,7 +67,7 @@ def evaluate_model(model, X_test, y_test):
     test_scores[f"SVR_Optimized_MAE"] = mean_absolute_error(y_test, predictions)
     test_scores[f"SVR_Optimized_RMSE"] = root_mean_squared_error(y_test, predictions)
 
-    return pd.DataFrame(test_scores, index=["Test Score"])
+    return predictions, pd.DataFrame(test_scores, index=["Test Score"])
 
 def store_results(results, path_prefix):
     """
@@ -86,6 +83,33 @@ def store_results(results, path_prefix):
     
     dfi.export(results, f"{path_prefix}test_results.png")
 
+def plot_predictions(y_true, y_pred, path_prefix):
+    """
+    Saves the comparison plot of actual vs predicted values as an image
+
+    Parameters
+    ----------
+    y_true : numpy array
+        actual values
+    y_pred : numpy array
+        predicted values
+    path_prefix: str
+        output path prefix
+    """
+    
+    plt.scatter(y_true, y_pred)
+    plt.yscale('log')
+    plt.xscale('log')
+
+    p1 = max(max(y_pred), max(y_true))
+    p2 = min(min(y_pred), min(y_true))
+    plt.plot([p1, p2], [p1, p2], 'b-')
+    plt.axis('equal')
+
+    plt.xlabel("Log True Area(ha)")
+    plt.ylabel("Log Predicted Area(ha)")
+    plt.savefig(f"{path_prefix}predictions.png")
+
 
 def main(opt):
     
@@ -94,9 +118,11 @@ def main(opt):
     X_test, y_test = read_data(opt["--test_data"])
     assert(isinstance(X_test, pd.DataFrame))
     
-    results = evaluate_model(model, X_test, y_test)
+    predictions, results = evaluate_model(model, X_test, y_test)
     assert(isinstance(results, pd.DataFrame))
+
     store_results(results, opt["--results_path"])
+    plot_predictions(y_test, predictions, opt["--results_path"])
     
 if __name__ == "__main__":
     main(opt)
