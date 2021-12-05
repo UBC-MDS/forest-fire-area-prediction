@@ -4,8 +4,6 @@ subtitle: "Final Report Group 2"
 author: "Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani"
 date: "11/27/2021"
 output: 
-  github_document:
-    toc: true
   html_document:
     toc: true
 bibliography: report_sections/bibliography.bib
