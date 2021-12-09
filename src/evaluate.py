@@ -81,7 +81,7 @@ def store_results(results, path_prefix):
         output path prefix
     """
     
-    dfi.export(results, f"{path_prefix}test_results.png")
+    dfi.export(results, f"{path_prefix}test_results.png",table_conversion='matplotlib')
 
 def plot_predictions(y_true, y_pred, path_prefix):
     """

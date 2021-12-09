@@ -36,12 +36,13 @@ alone, costing the Canadian government over $615 million dollars
 landscapes, fuel characteristics, climate patterns, and man-made
 infrastructure, it is incredibly hard to determine how large a forest
 fire will be, the intensity at which it will burn, and how it will move.
-Predicting such fire characteristics would benefit local communities and
-may influence resource allocation decisions during fire events. Our aim
-is to create a machine learning model that can predict how much area a
-particular fire will burn. While our model will be simple, it will begin
-to explore the interactions between climate, soil properties, and areas
-burned by forest fires.
+Predicting such fire characteristics may influence how evacuation orders
+are determined for local communities and how resources allocation
+decisions are made during fire events. Our aim is to create a machine
+learning model that can predict how much area a particular fire will
+burn. While our model will be simple, it will begin to explore the
+interactions between climate, soil properties, and areas burned by
+forest fires.
 
 # Methods
 

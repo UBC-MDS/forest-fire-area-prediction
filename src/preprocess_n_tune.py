@@ -277,7 +277,7 @@ def store_model_n_results(model, results, path_prefix):
     with open(f"{path_prefix}tuned_model.pickle", "wb") as f:
         pickle.dump(model, f)
         
-    dfi.export(results, f"{path_prefix}cv_results.png")
+    dfi.export(results, f"{path_prefix}cv_results.png", table_conversion='matplotlib')
 
 def main(opt):
     
