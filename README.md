@@ -83,6 +83,7 @@ Python:
       - docopt
       - dataframe_image
       - statsmodels
+      - pytest[version='>=6.2.5']
 
 R:
 
