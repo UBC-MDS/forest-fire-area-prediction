@@ -3,7 +3,7 @@
 # This make file runs the full analysis for 
 # the forest fire size prediction process.
 
-all: reports/forest_fire_analysis_report.md
+all: reports/forest_fire_analysis_report.md tests
 
 
 # Inital cleaning of the data and split into train and test sets
@@ -28,6 +28,11 @@ reports/forest_fire_analysis_report.md : results/EDA_day_plot.png results/EDA_pa
 										 reports/forest_fire_analysis_report.Rmd reports/report_sections/*
 										
 	RScript -e "rmarkdown::render('reports/forest_fire_analysis_report.Rmd')"
+
+# Test the functions and results
+tests : tests/* src/clean_n_split.py src/download_data.py src/EDA.py src/evaluate.py src/preprocess_n_tune.py \
+		data/processed/train_data.csv results/EDA_day_plot.png results/cv_results.png results/test_results.png
+	pytest --disable-warnings tests/
 
 clean: 
 	rm -rf data/processed/*.csv results/* reports/forest_fire_analysis_report.md

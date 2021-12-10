@@ -282,22 +282,16 @@ def store_model_n_results(model, results, path_prefix):
 def main(opt):
     
     X_train, y_train = read_data(opt["--train_data"])
-    assert(isinstance(X_train, pd.DataFrame))
     column_transformer = create_column_transformer()
-    assert(isinstance(column_transformer, ColumnTransformer))
     X_train, y_train = filter_outliers(X_train,
                                        y_train,
                                        column_transformer,
                                        opt['--results_path'])
-    assert(isinstance(X_train, pd.DataFrame))
     scorers = create_scorers()
-    assert(isinstance(scorers, dict))
     model, results = cross_validate_n_tune(X_train,
                                            y_train,
                                            column_transformer,
                                            scorers)
-    assert(isinstance(model, Pipeline))
-    assert(isinstance(results, pd.DataFrame))
     store_model_n_results(model, results, opt['--results_path'])
 
 if __name__ == "__main__":

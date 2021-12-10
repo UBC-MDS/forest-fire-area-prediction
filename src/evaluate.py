@@ -15,17 +15,11 @@ import pandas as pd
 import dataframe_image as dfi
 
 from sklearn.metrics import (
-    mean_squared_error,
     mean_absolute_error
 )
-from sklearn.pipeline import make_pipeline, Pipeline
+from sklearn.pipeline import Pipeline
 from preprocess_n_tune import root_mean_squared_error, read_data
-from scipy.stats import loguniform
-from statsmodels.stats.outliers_influence import OLSInfluence
 from docopt import docopt
-
-
-opt = docopt(__doc__)
 
 def load_model(path_prefix):
     """
@@ -90,13 +84,12 @@ def store_results(results, path_prefix):
 def main(opt):
     
     model = load_model(opt["--results_path"])
-    assert(isinstance(model, Pipeline))
     X_test, y_test = read_data(opt["--test_data"])
-    assert(isinstance(X_test, pd.DataFrame))
     
     results = evaluate_model(model, X_test, y_test)
     assert(isinstance(results, pd.DataFrame))
     store_results(results, opt["--results_path"])
     
 if __name__ == "__main__":
+    opt = docopt(__doc__)
     main(opt)
