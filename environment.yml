@@ -20,3 +20,4 @@ dependencies:
   - statsmodels
   - pandoc
   - lxml
+  - pytest

@@ -71,6 +71,9 @@ make results/test_results.png
 
 # Render final report
 make reports/forest_fire_analysis_report.md
+
+# Run tests
+make tests
 ```
 
 **Dependencies**
@@ -93,6 +96,7 @@ Python:
       - dataframe_image
       - statsmodels
       - lxml
+      - pytest[version='>=6.2.5']
 
 R:
 

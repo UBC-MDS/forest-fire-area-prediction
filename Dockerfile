@@ -24,6 +24,8 @@ RUN conda install -y -c conda-forge \
     graphviz=2.49.* \
     dataframe_image=0.1.*
 
+RUN conda install -c conda-forge pandoc -y
+
 #Install R and R packages
 RUN apt-get install r-base -y
 RUN Rscript -e 'install.packages("knitr")'
