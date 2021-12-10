@@ -62,6 +62,9 @@ make results/test_results.png
 
 # Render final report
 make reports/forest_fire_analysis_report.md
+
+# Run tests
+make tests
 ```
 
 **Dependencies**
