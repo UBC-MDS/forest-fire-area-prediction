@@ -37,10 +37,11 @@ def test_evaluate_model():
 
     model = load_model(RESULTS_PATH)
     X_test, y_test = read_data(TEST_DATA_PATH)
-    results = evaluate_model(model, X_test, y_test)
+    predictions, results = evaluate_model(model, X_test, y_test)
 
     assert isinstance(results, pd.DataFrame), "Type of results object is wrong"
     assert results.shape == (1, 2), "Test result dataframe shape is wrong"
+    assert predictions.shape == y_test.shape, "Prediction array shape is wrong"
 
 def test_store_results():
     """

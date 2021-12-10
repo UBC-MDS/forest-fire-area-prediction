@@ -22,6 +22,8 @@ RUN conda install jinja2=3.0.* -y
 
 RUN conda install statsmodels=0.13.* -y
 
+RUN conda install -c conda-forge pandoc -y
+
 #Install R and R packages
 RUN apt-get install r-base -y
 
