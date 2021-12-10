@@ -24,7 +24,9 @@ RUN conda install statsmodels=0.13.* -y
 
 #Install R and R packages
 RUN apt-get install r-base -y
+
 RUN Rscript -e 'install.packages("knitr")'
+RUN Rscript -e 'install.packages("rmarkdown")'
 
 RUN conda install -y -c conda-forge ipykernel=6.5.*
 
@@ -33,6 +35,7 @@ RUN conda install -y -c conda-forge graphviz=2.49.*
 RUN conda install -y -c conda-forge dataframe_image=0.1.*
 
 RUN apt-get install gcc python3-dev chromium-driver -y
+RUN pip install lxml
 
 #RUN pip install altair-data-server==0.4.*
 

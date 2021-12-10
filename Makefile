@@ -27,7 +27,7 @@ reports/forest_fire_analysis_report.md : results/EDA_day_plot.png results/EDA_pa
  										 results/cv_results.png results/outlier_detection.png results/test_results.png \
 										 results/predictions.png reports/forest_fire_analysis_report.Rmd reports/report_sections/*
 										
-	RScript -e "rmarkdown::render('reports/forest_fire_analysis_report.Rmd')"
+	Rscript -e "rmarkdown::render('reports/forest_fire_analysis_report.Rmd')"
 
 clean: 
 	rm -rf data/processed/*.csv results/* reports/forest_fire_analysis_report.md
