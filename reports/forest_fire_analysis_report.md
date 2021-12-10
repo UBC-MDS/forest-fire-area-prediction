@@ -34,14 +34,15 @@ burned in the recent decades, with over 1,350,000 ha burning in 2018
 alone, costing the Canadian government over $615 million dollars
 (British Columbia 2021). Due to the complexity and variability in
 landscapes, fuel characteristics, climate patterns, and man-made
-infrastructure, it is incredibly hard to determine how large a fire will
-be, the intensity at which it will burn, and how it will move.
-Predicting such fire characteristics would benefit local communities and
-may influence resource allocation decisions during fire events. Our aim
-is to create a machine learning model that can predict how much area a
-particular fire will burn. While our model will be simple, it will begin
-to explore the interactions between climate, soil properties, and area
-burned by forest fires.
+infrastructure, it is incredibly hard to determine how large a forest
+fire will be, the intensity at which it will burn, and how it will move.
+Predicting such fire characteristics may influence how evacuation orders
+are determined for local communities and how resources allocation
+decisions are made during fire events. Our aim is to create a machine
+learning model that can predict how much area a particular fire will
+burn. While our model will be simple, it will begin to explore the
+interactions between climate, soil properties, and areas burned by
+forest fires.
 
 # Methods
 
@@ -70,16 +71,16 @@ globally (P. Cortex, A. Morais 2007).
 
 The Support Vector Regression (SVR) algorithm was used to build a
 regression model to predict the burned areas of forest fires. The
-variables `FFMC`, `DMC` , `DC`, `ISI`, `temp`, `RH`, `wind`, `X`, `Y`
-and `season` were used to fit the model. The `day` and `rain` variables
-were dropped for the training, and the variable `month` was feature
+variables `FFMC`, `DMC`, `DC`, `ISI`, `temp`, `RH`, `wind`, `X`, `Y` and
+`season` were used to fit the model. The `day` and `rain` variables were
+dropped for the training, and the variable `month` was feature
 engineered into the `season` variable. Cook’s Distance method with a
-threshold of $\\frac{4}{n}$ was used to detect and remove outliers from
-the data set. The hyperparameters of *C* and *γ* were chosen using
-10-fold cross-validation with Mean Absolute Error (MAE) and Root Mean
-Squared Error (RMSE) as the regression metrics. The R and Python
-programming languages (R Core Team 2019; Van Rossum and Drake 2009) and
-the following R and Python packages were used to perform the analysis:
+threshold of 4/*n* was used to detect and remove outliers from the data
+set. The hyperparameters of *C* and *γ* were chosen using 10-fold
+cross-validation with Mean Absolute Error (MAE) and Root Mean Squared
+Error (RMSE) as the regression metrics. The R and Python programming
+languages (R Core Team 2019; Van Rossum and Drake 2009) and the
+following R and Python packages were used to perform the analysis:
 pickle (Van Rossum 2020), docopt (de Jonge 2018), knitr (Xie 2014),
 NumPy (Harris et al. 2020), Pandas (McKinney et al. 2010), statsmodels
 (Seabold and Perktold 2010), scikit-learn (Pedregosa et al. 2011), os
@@ -88,6 +89,9 @@ perform the analysis and create this report can be found here:
 <https://github.com/UBC-MDS/forest-fire-area-prediction-group-2>.
 
 # Results and Discussion
+
+**Note: In Github Document, the figure captions appear when hovering
+over the plots.**
 
 To explore which features might be useful in predicting forest fire burn
 areas, we made several graphs. Figure 1 shows that no clear relationship
@@ -99,9 +103,9 @@ there may be a relationship between burnt areas of forest and seasons,
 thus we drop the `day` feature and replace the months with their
 respective seasons.
 
-<img src="../results/EDA_day_plot.png" title="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" alt="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" width="50%" height="50%" />
+<img src="../results/EDA_day_plot.png" title="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" alt="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week" width="50%" height="50%" style="display: block; margin: auto;" />
 
-<img src="../results/EDA_season_plot.png" title="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" alt="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" width="50%" height="50%" />
+<img src="../results/EDA_season_plot.png" title="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" alt="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season" width="50%" height="50%" style="display: block; margin: auto;" />
 
 Figure 3 plots the pairwise relationships between the numerical
 variables of the dataset. We can see that the majority of the numerical
@@ -112,13 +116,13 @@ and `rain`. Since `rain` has mostly values of 0, we drop this variable.
 To address outliers in the other variables, we use Cook’s distance for
 detecting outliers.
 
-<img src="../results/EDA_pair_plot.png" title="Figure 3. Pairwise relationships between the numerical variables per season" alt="Figure 3. Pairwise relationships between the numerical variables per season" width="90%" height="90%" />
+<img src="../results/EDA_pair_plot.png" title="Figure 3. Pairwise relationships between the numerical variables per season" alt="Figure 3. Pairwise relationships between the numerical variables per season" width="90%" height="90%" style="display: block; margin: auto;" />
 
 The Cook’s distance method identified 4 observations as outliers as
 shown in figure 4. Consequently, we removed these 4 observations from
 our training data.
 
-<img src="../results/outlier_detection.png" title="Figure 4. Cook's distance outlier detection" alt="Figure 4. Cook's distance outlier detection" width="50%" height="50%" />
+<img src="../results/outlier_detection.png" title="Figure 4. Cook's distance outlier detection" alt="Figure 4. Cook's distance outlier detection" width="50%" height="50%" style="display: block; margin: auto;" />
 
 We chose to perform regression using the Support Vector Regression (SVR)
 algorithm. To find the best model that predicted the burned forest area,
@@ -128,46 +132,50 @@ that the optimal *C* was 1.88 and the optimal *γ* was 0.48.
 
 <br>
 
-<img src="../results/cv_results.png" width="50%" height="50%" />
+<img src="../results/cv_results.png" width="80%" height="80%" style="display: block; margin: auto;" />
 
-Table 1. Results from 10-fold cross-validation before and after
+<br> Table 1. Results from 10-fold cross-validation before and after
 hyperparameter optimization
 
-<br> Table 1 shows that the models improve slightly after hyperparameter
+Table 1 shows that the models improve slightly after hyperparameter
 tuning. The mean train scores and the mean validation scores using both
 MAE and RMSE seem to be fairly close to each other.
 
 <br>
 
-<img src="../results/test_results.png" width="40%" height="40%" />
-
-Table 2. Results from 10-fold cross-validation before and after
+<img src="../results/test_results.png" width="40%" height="40%" style="display: block; margin: auto;" />
+<br> Table 2. Results from 10-fold cross-validation before and after
 hyperparameter optimization
 
-Table 2 reveals that the model performed similarly on unseen test data
-when compared to the mean cross-validated validation scores when using
-MAE. However, the model performs slightly better on the validation sets
-compared to the test data when using RMSE. Furthermore, the MAE score is
-less than the RMSE score which is sensible as we should normally have
-*M**A**E* ≤ *R**M**S**E*. Both regression metrics express the average
+<br> Table 2 reveals that the model performed similarly on unseen test
+data when compared to the mean cross-validated validation scores when
+using MAE. However, the model performs slightly better on the validation
+sets compared to the test data when using RMSE. Furthermore, the MAE
+score is less than the RMSE score which is sensible as we should
+normally have MAE ≤ RMSE. Both regression metrics express the average
 prediction error in the units of hectares. It is also worth noting that
 RMSE squares the errors before taking the average, which gives higher
 weights to large errors. Therefore, considering RMSE would be more
 useful when large errors are particularly undesirable.
 
-Overall, we find that the model performs well on the test data as our
-target variable `area` has a range of values from 0 to 1090.84 hectares.
-Therefore, using both regression metrics, the errors provided in table 2
-seem to be quite low in comparison to the range of values. Nonetheless,
-in the context of burned areas of fire, large errors are particularly
-undesirable, and as a result RMSE might be more useful as it gives more
-weight to the observations further away from the mean – that is, being
-off by 20ha will be more than twice as bad as being off by 10ha.
+Overall, we find that the model performs fairly well on the test data as
+our target variable `area` has a range of values from 0 to 1090.84
+hectares. Therefore, using both regression metrics, the errors provided
+in table 2 seem to be quite low in comparison to the range of values.
+Nonetheless, in the context of burned areas of fire, large errors are
+particularly undesirable, and as a result, RMSE might be more useful as
+it gives more weight to the observations further away from the mean –
+that is, being off by 20ha will be more than twice as bad as being off
+by 10ha. As suggested by a higher RMSE, figure 5 shows that the model is
+majorly underpredicting for very large fires. This could partly be
+because we have a small dataset, and the test data contains outliers.
+
+<img src="../results/predictions.png" title="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" alt="Figure 5. Observed vs. predicted burnt areas (non-zero areas)" width="50%" height="50%" style="display: block; margin: auto;" />
 
 We understand that there are additional ways to improve our model and
 results. Since we have such skewed data it is important that we
 appropriately address outliers thus we can try other outlier detection
-methods to confirms our results found using Cook’s distance method. We
+methods to confirm our results found using Cook’s distance method. We
 can also employ feature selection algorithms or transform our predictor
 variables by applying log-normal, square root, or other transformations.
 Additionally, we can consider the interactions between the variables

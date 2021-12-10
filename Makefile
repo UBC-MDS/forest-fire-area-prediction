@@ -19,15 +19,15 @@ results/cv_results.png results/outlier_detection.png results/tuned_model.pickle 
 	python src/preprocess_n_tune.py --train_data=data/processed/train_data.csv --results_path=results/
 
 # Evaluates the best tuned model on test data
-results/test_results.png : src/evaluate.py results/tuned_model.pickle data/processed/test_data.csv
+results/test_results.png results/predictions.png : src/evaluate.py results/tuned_model.pickle data/processed/test_data.csv
 	python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
 
 # Compile the results into a report
 reports/forest_fire_analysis_report.md : results/EDA_day_plot.png results/EDA_pair_plot.png results/EDA_season_plot.png \
  										 results/cv_results.png results/outlier_detection.png results/test_results.png \
-										 reports/forest_fire_analysis_report.Rmd reports/report_sections/*
+										 results/predictions.png reports/forest_fire_analysis_report.Rmd reports/report_sections/*
 										
-	RScript -e "rmarkdown::render('reports/forest_fire_analysis_report.Rmd')"
+	Rscript -e "rmarkdown::render('reports/forest_fire_analysis_report.Rmd')"
 
 # Test the functions and results
 tests : tests/* src/clean_n_split.py src/download_data.py src/EDA.py src/evaluate.py src/preprocess_n_tune.py \
