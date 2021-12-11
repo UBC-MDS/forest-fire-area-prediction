@@ -32,7 +32,7 @@ def main(file_path, out_folder):
     day_plot = alt.Chart(cleaned_train_set).mark_boxplot(size = 15).encode(
       x = alt.X("area", 
               scale = alt.Scale(type = "sqrt"),
-              title = "Burned area"),
+              title = "Burned area (ha)"),
       y = alt.Y("day", 
               sort = "x",
               title = "Day of Week"),
@@ -46,13 +46,13 @@ def main(file_path, out_folder):
     season_plot = alt.Chart(cleaned_train_set).mark_boxplot(size = 15).encode(
       x = alt.X("area", 
               scale = alt.Scale(type = "sqrt"),
-              title = "Burned area"),
+              title = "Burned area (ha)"),
       y = alt.Y("season", 
               sort = "x",
               title = "Season"),
-      color = alt.Color("day",
-                      legend = None)
-                      ).properties(
+   #   color = alt.Color("day",
+    #                  legend = None)
+                    ).properties(
                         height = 250,
                         width = 450
                         )
