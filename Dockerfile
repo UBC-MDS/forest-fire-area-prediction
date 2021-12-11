@@ -15,15 +15,15 @@ RUN conda install -y \
     pytest=6.2.* \
     scikit-learn=1.0.* \
     jinja2=3.0.* \
-    statsmodels=0.13.* \
-    pandoc=2.16.*
+    statsmodels=0.13.* 
+
 
 RUN conda install -y -c conda-forge \
     ipykernel=6.5.* \
     altair_saver \
     graphviz=2.49.* \
-    dataframe_image=0.1.*
-
+    dataframe_image=0.1.* 
+    
 RUN conda install -c conda-forge pandoc -y
 
 #Install R and R packages
