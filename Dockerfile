@@ -36,5 +36,3 @@ RUN apt-get install gcc python3-dev chromium-driver -y
 RUN pip install lxml
 
 WORKDIR "${HOME}"
-
-
