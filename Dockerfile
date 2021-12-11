@@ -1,5 +1,5 @@
 #Authors: Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani
-#Date:11th Dec, 2021
+#Date: Dec 11th, 2021
 
 
 #Base image
