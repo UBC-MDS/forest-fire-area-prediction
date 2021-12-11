@@ -24,6 +24,8 @@ To predict the size of wildfires, we are building a predictive regression model.
 
 The final report can be found [here](https://ubc-mds.github.io/forest-fire-area-prediction-group-2/reports/forest_fire_analysis_report.html).
 
+------------------------------------------------------------------------
+
 ## Usage
 
 **1. Running on Docker**
@@ -75,6 +77,8 @@ make reports/forest_fire_analysis_report.md
 make tests
 ```
 
+------------------------------------------------------------------------
+
 **Dependencies**
 
 Python:
@@ -101,6 +105,9 @@ R:
 
       - knitr==1.26
       - rmarkdown
+      
+
+------------------------------------------------------------------------
 
 ## References
 
