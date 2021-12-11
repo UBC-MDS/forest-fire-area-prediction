@@ -1,29 +1,26 @@
-
-**Note: In Github Document, the figure captions appear when hovering over the plots.**
-
 To explore which features might be useful in predicting forest fire burn areas, we made several graphs. Figure 1 shows that no clear relationship between the burnt area of the forest and the days of the week exists. Since some months such as January, May and November have few observations making the  `month` variable unbalanced, we create a `season` variable to help avoid overfitting. From figure 2 we see that there may be a relationship between burnt areas of forest and seasons, thus we drop the `day` feature and replace the months with their respective seasons. 
 
 
-```{r days_burnt_area, echo = FALSE, fig.cap="Figure 1. Distribution of burnt areas of the forest (sqrt transformed) per day of the week", out.width = '50%', out.height = '50%', fig.align = 'center'}
+```{r days_burnt_area, echo = FALSE, fig.cap = "**Figure 1.** Distribution of burnt areas of the forest (sqrt transformed) per day of the week", out.width = '50%', out.height = '50%', fig.align = 'center'}
 knitr::include_graphics("../results/EDA_day_plot.png")
 ```
 
 
-```{r season_burnt_area, echo = FALSE, fig.cap="Figure 2. Distribution of burnt areas of the forest (sqrt transformed) per season", out.width = '50%', out.height = '50%', fig.align = 'center'}
+```{r season_burnt_area, echo = FALSE, fig.cap = "**Figure 2.** Distribution of burnt areas of the forest (sqrt transformed) per season", out.width = '50%', out.height = '50%', fig.align = 'center'}
 knitr::include_graphics("../results/EDA_season_plot.png")
 ```
 
 Figure 3 plots the pairwise relationships between the numerical variables of the dataset. We can see that the majority of the numerical variables have different ranges of values for each season. In addition to showing the patterns between the numerical variables, this plot also reveals outliers in input features such as `FFMC`, `DMC`, `DC`, `ISI` and `rain`. Since `rain` has mostly values of 0, we drop this variable. To address outliers in the other variables, we use Cook's distance for detecting outliers. 
 
 
-```{r pairwise_plot, echo = FALSE, fig.cap="Figure 3. Pairwise relationships between the numerical variables per season", out.width = '90%', out.height = '90%', fig.align = 'center'}
+```{r pairwise_plot, echo = FALSE, fig.cap = "**Figure 3.** Pairwise relationships between the numerical variables per season", out.width = '90%', out.height = '90%', fig.align = 'center'}
 knitr::include_graphics("../results/EDA_pair_plot.png")
 ```
 
 
 The Cook's distance method identified 4 observations as outliers as shown in figure 4. Consequently, we removed these 4 observations from our training data. 
 
-```{r outlier_detection, echo = FALSE, fig.cap="Figure 4. Cook's distance outlier detection", out.width = '50%', out.height = '50%', fig.align = 'center'}
+```{r outlier_detection, echo = FALSE, fig.cap = "**Figure 4.** Cook's distance outlier detection", out.width = '50%', out.height = '50%', fig.align = 'center'}
 knitr::include_graphics("../results/outlier_detection.png")
 ```
 
@@ -36,9 +33,11 @@ knitr::include_graphics("../results/cv_results.png")
 ```
 
 <br>
-Table 1. Results from 10-fold cross-validation before and after hyperparameter optimization
 
-Table 1 shows that the models improve slightly after hyperparameter tuning. The mean train scores and the mean validation scores using both MAE and RMSE seem to be fairly close to each other.
+<center>**Table 2.** Results from 10-fold cross-validation before and after hyperparameter optimization</center>
+
+<br>
+Table 2 shows that the models improve slightly after hyperparameter tuning. The mean train scores and the mean validation scores using both MAE and RMSE seem to be fairly close to each other.
 
 <br>
 
@@ -46,14 +45,14 @@ Table 1 shows that the models improve slightly after hyperparameter tuning. The 
 knitr::include_graphics("../results/test_results.png")
 ```
 <br>
-Table 2. Results from 10-fold cross-validation before and after hyperparameter optimization
+<center>**Table 3.** Results from 10-fold cross-validation before and after hyperparameter optimization</center>
 
 <br>
-Table 2 reveals that the model performed similarly on unseen test data when compared to the mean cross-validated validation scores when using MAE. However, the model performs slightly better on the validation sets compared to the test data when using RMSE. Furthermore, the MAE score is less than the RMSE score which is sensible as we should normally have MAE $\leq$ RMSE. Both regression metrics express the average prediction error in the units of hectares. It is also worth noting that RMSE squares the errors before taking the average, which gives higher weights to large errors. Therefore, considering RMSE would be more useful when large errors are particularly undesirable. 
+Table 3 reveals that the model performed similarly on unseen test data when compared to the mean cross-validated validation scores when using MAE. However, the model performs slightly better on the validation sets compared to the test data when using RMSE. Furthermore, the MAE score is less than the RMSE score which is sensible as we should normally have MAE $\leq$ RMSE. Both regression metrics express the average prediction error in the units of hectares. It is also worth noting that RMSE squares the errors before taking the average, which gives higher weights to large errors. Therefore, considering RMSE would be more useful when large errors are particularly undesirable. 
 
-Overall, we find that the model performs fairly well on the test data as our target variable `area` has a range of values from $0$ to $1090.84$ hectares. Therefore, using both regression metrics, the errors provided in table 2 seem to be quite low in comparison to the range of values. Nonetheless, in the context of burned areas of fire, large errors are particularly undesirable, and as a result, RMSE might be more useful as it gives more weight to the observations further away from the mean -- that is, being off by 20ha will be more than twice as bad as being off by 10ha. As suggested by a higher RMSE, figure 5 shows that the model is majorly underpredicting for very large fires. This could partly be because we have a small dataset, and the test data contains outliers.
+Overall, we find that the model performs fairly well on the test data as our target variable `area` has a range of values from $0$ to $1090.84$ hectares. Therefore, using both regression metrics, the errors provided in table 3 seem to be quite low in comparison to the range of values. Nonetheless, in the context of burned areas of fire, large errors are particularly undesirable, and as a result, RMSE might be more useful as it gives more weight to the observations further away from the mean -- that is, being off by 20ha will be more than twice as bad as being off by 10ha. As suggested by a higher RMSE, figure 5 shows that the model is majorly underpredicting for very large fires. This could partly be because we have a small dataset, and the test data contains outliers.
 
-```{r observed_vs_predicted_plot, echo = FALSE, fig.cap = "Figure 5. Observed vs. predicted burnt areas (non-zero areas)", out.width = '50%', out.height = '50%', fig.align = 'center'}
+```{r observed_vs_predicted_plot, echo = FALSE, fig.cap = "**Figure 5.** Observed vs. predicted burnt areas (non-zero areas)", out.width = '50%', out.height = '50%', fig.align = 'center'}
 knitr::include_graphics("../results/predictions.png")
 ```
 

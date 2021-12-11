@@ -12,9 +12,13 @@ bibliography: report_sections/bibliography.bib
 ```{r summary, child = "report_sections/summary.Rmd" }
 ```
 
+---
+
 # Introduction
 ```{r introduction, child = "report_sections/introduction.Rmd"}
 ```
+
+---
 
 # Methods
 ## Data
@@ -25,9 +29,13 @@ bibliography: report_sections/bibliography.bib
 ```{r analysis, child="report_sections/analysis.Rmd"}
 ```
 
+---
+
 # Results and Discussion
 ```{r results, child="report_sections/results_discussion.Rmd"}
 ```
+
+---
 
 # References
 
