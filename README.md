@@ -16,26 +16,35 @@ Our EDA analysis includes preliminary information of the test data set (such as 
 
 ### Analysis
 
-To predict the size of wildfires, we are building a predictive regression model. First, we split our data set into train and test splits with an 80:20 ratio. Then, we use Cook’s Distance method with a threshold of 4/n to detect and remove outliers from the data set. We use the Support Vector Regression (SVR) algorithm and Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) as the scoring metrics and perform cross-validation with 10 folds to tune the hyperparameters. Once our best model is found, we will evaluate it on the test set and report the scores. Our final report will contain a table of error metrics for the SVR model as well as a plot showing the predicted burned areas from our best model versus the observed burned areas to highlight the model's performance on unseen test data.
+To predict the size of wildfires, we are building a predictive regression model. First, we split our data set into train and test splits with an 80:20 ratio. Then, we use Cook's Distance method with a threshold of 4/n to detect and remove outliers from the data set. We use the Support Vector Regression (SVR) algorithm and Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) as the scoring metrics and perform cross-validation with 10 folds to tune the hyperparameters. Once our best model is found, we will evaluate it on the test set and report the scores. Our final report will contain a table of error metrics for the SVR model as well as a plot showing the predicted burned areas from our best model versus the observed burned areas to highlight the model's performance on unseen test data.
 
 ------------------------------------------------------------------------
 
 ## Report
 
-The final report can be found [here](https://github.com/UBC-MDS/forest-fire-area-prediction-group-2/blob/dev/reports/forest_fire_analysis_report.md).
+The final report can be found [here](https://ubc-mds.github.io/forest-fire-area-prediction-group-2/reports/forest_fire_analysis_report.html).
+
 
 ## Usage
 
-**WINDOWS USERS:** The current workflow might not work on Windows due to a dependency support issue not in our control. This will be resolved in the next milestone with Docker containers.
+**1. Running on Docker**
 
-To replicate our analysis install the dependencies that are listed below. Alternatively, you can create and activate a conda environment with all the dependencies using the following `conda` command.
+1.  Clone/download this repository
+2.  use the command line to navigate to the root of this project on your computer
+3.  Run `docker run --rm -v $(pwd):/home/ffa_prediction mvore/ffa_prediction make -C '/home/ffa_prediction' all`
+4.  To clean all files from project, run `docker run --rm -v $(pwd):/home/ffa_prediction mvore/ffa_prediction make -C '/home/ffa_prediction' clean`
+
+**2. From Makefile**
+
+1.  Clone/download this repository
+2.  Create and activate a conda environment with all the dependencies using the following `conda` command.
 
 ``` bash
 conda env create -f environment.yml
 conda activate ffa_prediction
 ```
 
-To run all the steps in the analysis using `make` from the root directory of the project.
+3.  Run all steps of analysis using the following make command from root directory of this project To run all the steps in the analysis using `make` from the root directory of the project.
 
 ``` bash
 # Clean data, results, and reports
@@ -45,7 +54,7 @@ make clean
 make all
 ```
 
-To run the steps individually using `make` from the root directory of the project.
+4.  To run the steps individually using `make` from the root directory of the project, run the following commands
 
 ``` bash
 # Clean and split data
@@ -62,7 +71,15 @@ make results/test_results.png
 
 # Render final report
 make reports/forest_fire_analysis_report.md
+
+# Run tests
+make tests
 ```
+**Dependency diagram of the Makefile:**
+
+![alt text](results/makefile_dependency_diagram.png)
+
+------------------------------------------------------------------------
 
 **Dependencies**
 
@@ -83,13 +100,16 @@ Python:
       - docopt
       - dataframe_image
       - statsmodels
+      - lxml
+      - pytest[version='>=6.2.5']
 
 R:
 
       - knitr==1.26
-      - tidyverse==1.2.1
-      - caret==6.0-84
-      - ggthemes==4.2.0
+      - rmarkdown
+      
+
+------------------------------------------------------------------------
 
 ## References
 

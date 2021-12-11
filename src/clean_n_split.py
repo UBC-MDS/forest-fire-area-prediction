@@ -11,16 +11,11 @@ Options:
 --train_data_file=<train_data_file>   The file name of the created training data set
 """
 
-import os
-import numpy as np
 import pandas as pd
-import pickle
 from sklearn.model_selection import train_test_split
 from docopt import docopt
 
-opt = docopt(__doc__)
-
-def  get_seasons(df):
+def get_seasons(df):
     """
     Changes months into season
 
@@ -34,7 +29,6 @@ def  get_seasons(df):
     Array
        Seasons the months are associated with
     """
-
 
     seasons = ["NONE"] * len(df)
     for x in range(0, len(df)):
@@ -55,7 +49,6 @@ def main(file_path,  test_data_file, train_data_file):
     s = get_seasons(ff_data)
 
     ff_data["season"] = s
-    assert(len(ff_data.loc[ff_data.season == 'fall']) == len(ff_data.loc[(ff_data.month =='sep') |  (ff_data.month =='oct') | (ff_data.month =='nov')]))  
 
     train_df, test_df = train_test_split(ff_data, test_size=0.2, random_state=123)
      
@@ -64,4 +57,5 @@ def main(file_path,  test_data_file, train_data_file):
 
 
 if __name__ == "__main__":
+    opt = docopt(__doc__)
     main(opt["--file_path"], opt["--test_data_file"],opt["--train_data_file"])

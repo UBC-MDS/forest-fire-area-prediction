@@ -21,9 +21,6 @@ from sklearn.pipeline import Pipeline
 from preprocess_n_tune import root_mean_squared_error, read_data
 from docopt import docopt
 
-
-opt = docopt(__doc__)
-
 def load_model(path_prefix):
     """
     Loads the model from the path prefix
@@ -81,7 +78,8 @@ def store_results(results, path_prefix):
         output path prefix
     """
     
-    dfi.export(results, f"{path_prefix}test_results.png")
+    dfi.export(results, f"{path_prefix}test_results.png",table_conversion='matplotlib')
+    
 
 def plot_predictions(y_true, y_pred, path_prefix):
     """
@@ -114,9 +112,7 @@ def plot_predictions(y_true, y_pred, path_prefix):
 def main(opt):
     
     model = load_model(opt["--results_path"])
-    assert(isinstance(model, Pipeline))
     X_test, y_test = read_data(opt["--test_data"])
-    assert(isinstance(X_test, pd.DataFrame))
     
     predictions, results = evaluate_model(model, X_test, y_test)
     assert(isinstance(results, pd.DataFrame))
@@ -125,4 +121,5 @@ def main(opt):
     plot_predictions(y_test, predictions, opt["--results_path"])
     
 if __name__ == "__main__":
+    opt = docopt(__doc__)
     main(opt)

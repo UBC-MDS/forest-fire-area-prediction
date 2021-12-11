@@ -4,8 +4,6 @@ subtitle: "Final Report Group 2"
 author: "Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani"
 date: "11/27/2021"
 output: 
-  github_document:
-    toc: true
   html_document:
     toc: true
 bibliography: report_sections/bibliography.bib
@@ -14,9 +12,13 @@ bibliography: report_sections/bibliography.bib
 ```{r summary, child = "report_sections/summary.Rmd" }
 ```
 
+---
+
 # Introduction
 ```{r introduction, child = "report_sections/introduction.Rmd"}
 ```
+
+---
 
 # Methods
 ## Data
@@ -27,9 +29,13 @@ bibliography: report_sections/bibliography.bib
 ```{r analysis, child="report_sections/analysis.Rmd"}
 ```
 
+---
+
 # Results and Discussion
 ```{r results, child="report_sections/results_discussion.Rmd"}
 ```
+
+---
 
 # References
 
