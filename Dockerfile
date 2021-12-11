@@ -1,6 +1,7 @@
 #Authors: Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani
 #Date: Dec 11th, 2021
 
+USER root
 
 #Base image
 FROM continuumio/miniconda3
