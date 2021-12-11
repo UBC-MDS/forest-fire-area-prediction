@@ -34,7 +34,7 @@ The final report can be found [here](https://ubc-mds.github.io/forest-fire-area-
 3.  Run `docker run --rm -v $(pwd):/home/ffa_prediction mvore/ffa_prediction make -C '/home/ffa_prediction' all`
 4.  To clean all files from project, run `docker run --rm -v $(pwd):/home/ffa_prediction mvore/ffa_prediction make -C '/home/ffa_prediction' clean`
 
-**2.From Makefile**
+**2. From Makefile**
 
 1.  Clone/download this repository
 2.  Create and activate a conda environment with all the dependencies using the following `conda` command.
@@ -75,6 +75,9 @@ make reports/forest_fire_analysis_report.md
 # Run tests
 make tests
 ```
+**Dependency diagram of the Makefile:**
+
+![alt text](results/makefile_dependency_diagram.png)
 
 ------------------------------------------------------------------------
 
