@@ -35,8 +35,8 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: mvore/ffa_prediction # change this to your DockerHub username and repository
+        name: mvore/ffa-prediction # change this to your DockerHub username and repository
         username: ${{ secrets.DOCKER_USERNAME }} # you need to add your Docker username to this GitHub repo as a secret
         password: ${{ secrets.DOCKER_PASSWORD }} # you need to add your Docker password to this GitHub repo as a secret
         tags: "latest,${{ steps.bump.outputs.new_tag }}"
-          echo test, and deploy your project.
+
