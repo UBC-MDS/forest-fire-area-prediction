@@ -1,7 +1,6 @@
 #Authors: Margot Vore, Ana Einolghozati, Gautham Pughazhendhi, Hatef Rahmani
 #Date: Dec 11th, 2021
 
-USER root
 
 #Base image
 FROM continuumio/miniconda3
@@ -35,5 +34,3 @@ RUN Rscript -e 'install.packages("rmarkdown")'
 # Install packages for figure export and rendering 
 RUN apt-get install gcc python3-dev chromium-driver -y
 RUN pip install lxml
-
-WORKDIR "${HOME}"
