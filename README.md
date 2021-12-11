@@ -26,15 +26,24 @@ The final report can be found [here](https://github.com/UBC-MDS/forest-fire-area
 
 ## Usage
 
-**WINDOWS USERS:** The current workflow might not work on Windows due to a dependency support issue not in our control. This will be resolved in the next milestone with Docker containers.
+__1. Running on Docker__
 
-To replicate our analysis install the dependencies that are listed below. Alternatively, you can create and activate a conda environment with all the dependencies using the following `conda` command.
+1. Clone/download this repository
+2. use the command line to navigate to the root of this project on your computer
+3. Run `docker run --rm -v $(pwd):/home/ffa_prediction mvore/ffa_prediction make -C '/home/ffa_prediction' all`
+4. To clean all files from project, run `docker run --rm -v $(pwd):/home/ffa_prediction mvore/ffa_prediction make -C '/home/ffa_prediction' clean`
+
+__2.From Makefile__
+
+1. Clone/download this repository
+2. Create and activate a conda environment with all the dependencies using the following `conda` command.
 
 ``` bash
 conda env create -f environment.yml
 conda activate ffa_prediction
 ```
 
+3. Run all steps of analysis using the following make command from root directory of this project
 To run all the steps in the analysis using `make` from the root directory of the project.
 
 ``` bash
@@ -45,7 +54,7 @@ make clean
 make all
 ```
 
-To run the steps individually using `make` from the root directory of the project.
+4. To run the steps individually using `make` from the root directory of the project, run the following commands
 
 ``` bash
 # Clean and split data
@@ -86,14 +95,13 @@ Python:
       - docopt
       - dataframe_image
       - statsmodels
+      - lxml
       - pytest[version='>=6.2.5']
 
 R:
 
       - knitr==1.26
-      - tidyverse==1.2.1
-      - caret==6.0-84
-      - ggthemes==4.2.0
+      - rmarkdown
 
 ## References
 
