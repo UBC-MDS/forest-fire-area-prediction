@@ -17,7 +17,6 @@ Figure 3 plots the pairwise relationships between the numerical variables of the
 knitr::include_graphics("../results/EDA_pair_plot.png")
 ```
 
-
 The Cook's distance method identified 4 observations as outliers as shown in figure 4. Consequently, we removed these 4 observations from our training data. 
 
 ```{r outlier_detection, echo = FALSE, fig.cap = "**Figure 4.** Cook's distance outlier detection", out.width = '50%', out.height = '50%', fig.align = 'center'}
