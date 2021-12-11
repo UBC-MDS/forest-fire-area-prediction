@@ -36,7 +36,7 @@ knitr::include_graphics("../results/cv_results.png")
 <center>**Table 2.** Results from 10-fold cross-validation before and after hyperparameter optimization</center>
 
 <br>
-Table 2 shows that the models improve slightly after hyperparameter tuning. The mean train scores and the mean validation scores using both MAE and RMSE seem to be fairly close to each other.
+Table 2 shows that the models do not improve much after hyperparameter tuning. The mean train scores and the mean validation scores using both MAE and RMSE seem to be fairly close to each other.
 
 <br>
 
