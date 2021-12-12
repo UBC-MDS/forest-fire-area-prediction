@@ -77,7 +77,7 @@ make tests
 ```
 **Dependency diagram of the Makefile:**
 
-![alt text](results/makefile_dependency_diagram.png)
+![alt text](Makefile.png)
 
 ------------------------------------------------------------------------
 
