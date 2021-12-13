@@ -3,7 +3,7 @@
 # This make file runs the full analysis for 
 # the forest fire size prediction process.
 
-all: reports/forest_fire_analysis_report.md tests
+all: reports/forest_fire_analysis_report.html tests
 
 
 # Inital cleaning of the data and split into train and test sets
@@ -23,7 +23,7 @@ results/test_results.png results/predictions.png : src/evaluate.py results/tuned
 	python src/evaluate.py --test_data=data/processed/test_data.csv --results_path=results/
 
 # Compile the results into a report
-reports/forest_fire_analysis_report.md : results/EDA_day_plot.png results/EDA_pair_plot.png results/EDA_season_plot.png \
+reports/forest_fire_analysis_report.html : results/EDA_day_plot.png results/EDA_pair_plot.png results/EDA_season_plot.png \
  										 results/cv_results.png results/outlier_detection.png results/test_results.png \
 										 results/predictions.png reports/forest_fire_analysis_report.Rmd reports/report_sections/*
 										
@@ -35,4 +35,4 @@ tests : tests/* src/clean_n_split.py src/download_data.py src/EDA.py src/evaluat
 	pytest --disable-warnings tests/
 
 clean: 
-	rm -rf data/processed/*.csv results/* reports/forest_fire_analysis_report.md
+	rm -rf data/processed/*.csv results/* reports/forest_fire_analysis_report.html
