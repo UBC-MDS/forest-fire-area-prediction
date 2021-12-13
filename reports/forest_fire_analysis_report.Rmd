@@ -6,6 +6,8 @@ date: "11/27/2021"
 output: 
   html_document:
     toc: true
+  github_document:
+    toc: true 
 bibliography: report_sections/bibliography.bib
 ---
 # Summary
